@@ -2,6 +2,12 @@ import { gql } from 'apollo-server-express';
 
 export default gql`
     scalar Void
+
+    type Pagination {
+        limit: String
+        offset: String
+        total: Int
+    }
     
     type Member {
         artist: String!
@@ -44,6 +50,13 @@ export default gql`
         genres: [Genre]
     }
     
+    type BandWithPagination {
+        items: [Band]
+        limit: String
+        offset: String
+        total: Int   
+    }
+    
     type Genre {
         id: ID!
         name: String
@@ -55,10 +68,10 @@ export default gql`
     type Favourites {
         id: ID!
         userId: ID
-        bands: [Band]
-        genres: [Genre]
-        artists: [Artist]
-        tracks: [Track]
+        bandsIds: [String]
+        genresIds: [String]
+        artistsIds: [String]
+        tracksIds: [String]
     }
     
     type Album {
@@ -69,6 +82,23 @@ export default gql`
         bands: [Band]
         tracks: [Track]
         genres: [Genre]
+        image: String
+    }
+    
+    type AlbumWithPagination {
+        items: [Album]
+        limit: String
+        offset: String
+        total: Int
+    }
+    
+    input AlbumInput {
+        name: String
+        released: Int
+        artists: [ArtistInput]
+        bands: [BandInput]
+        tracks: [TrackInput]
+        genres: [GenreInput]
         image: String
     }
     
@@ -90,11 +120,18 @@ export default gql`
         genres: [Genre]
     }
     
+    type TrackWithPagination {
+        items: [Track]
+        limit: String
+        offset: String
+        total: Int
+    }
+    
     type Jwt {
         jwt: String
     }
     
-    input CreateTrackInput {
+    input TrackInput {
         title: String!
         duration: Int
         released: Int
@@ -157,8 +194,13 @@ export default gql`
         artist(id: ID!): Artist
         genres(limit: Int, offset: Int): GenresWithPagination
         genre(id: ID!): Genre
-        tracks: [Track]
+        tracks(limit: Int, offset: Int): TrackWithPagination
         track(id: ID): Track
+        bands(limit: Int, offset: Int): BandWithPagination
+        band(id: ID): Band
+        albums(limit: Int, offset: Int): AlbumWithPagination
+        album(id: ID): Album
+        favourites: Favourites
     }
     
     type Mutation {
@@ -169,6 +211,18 @@ export default gql`
         createGenre(input: GenreInput): Genre
         deleteGenre(id: ID!): Void
         updateGenre(id: ID, input: GenreInput): Genre
-        createTrack(input: CreateTrackInput): Track
+        createTrack(input: TrackInput): Track
+        updateTrack(id: ID, input: TrackInput): Track
+        deleteTrack(id: ID!): Void
+        createBand(input: BandInput): Band
+        updateBand(id: ID, input: BandInput): Band
+        deleteBand(id: ID!): Void
+        createAlbum(input: AlbumInput): Album
+        updateAlbum(id: ID, input: AlbumInput): Album
+        deleteAlbum(id: ID!): Void
+        addTrackToFavourites(id: ID!): Favourites
+        addBandToFavourites(id: ID!): Favourites
+        addArtistToFavourites(id: ID!): Favourites
+        addGenreToFavourites(id: ID!): Favourites
     }
 `;

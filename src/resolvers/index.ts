@@ -1,7 +1,10 @@
-import { getTrack, getTracks, createTrack } from '../modules/tracks/resolvers';
 import { registerUser, getUser, getJWT } from '../modules/users/resolvers';
 import { getArtists, getArtist, createArtist, deleteArtist, updateArtist } from '../modules/artists/resolvers';
 import { getGenres, getGenre, createGenre, deleteGenre, updateGenre } from '../modules/genres/resolvers';
+import { getTrack, getTracks, createTrack, updateTrack, deleteTrack } from '../modules/tracks/resolvers';
+import { getBand, getBands, createBand, updateBand, deleteBand } from '../modules/bands/resolvers';
+import { getAlbum, getAlbums, createAlbum, updateAlbum, deleteAlbum } from '../modules/albums/resolvers';
+import { addArtistToFavourites, addBandToFavourites, addGenreToFavourites, addTrackToFavourites } from '../modules/favourites/resolvers';
 
 export const resolvers = {
   Query: {
@@ -12,7 +15,11 @@ export const resolvers = {
       genre: getGenre,
       genres: getGenres,
       tracks: getTracks,
-      track: getTrack
+      track: getTrack,
+      bands: getBands,
+      band: getBand,
+      albums: getAlbums,
+      album: getAlbum
   },
   Mutation: {
       registerUser,
@@ -22,6 +29,18 @@ export const resolvers = {
       createGenre,
       deleteGenre,
       updateGenre,
-      createTrack
+      createTrack,
+      updateTrack,
+      deleteTrack,
+      createBand,
+      updateBand,
+      deleteBand,
+      createAlbum,
+      updateAlbum,
+      deleteAlbum,
+      addArtistToFavourites,
+      addBandToFavourites,
+      addGenreToFavourites,
+      addTrackToFavourites
   }
 };
