@@ -82,7 +82,9 @@ Variables:
 }
 ```
 
-### `createArtist`
+### Artist
+
+#### `createArtist`
 
 ```graphql
 mutation createArtist($input: ArtistInput) {
@@ -143,7 +145,7 @@ Variables:
 }
 ```
 
-### `deleteArtist`
+#### `deleteArtist`
 ```graphql
 mutation deleteArtist($id: ID!) {
     deleteArtist(id: $id)
@@ -157,7 +159,7 @@ Variables (`id` should be adjusted accordingly):
 }
 ```
 
-### `updateArtist`
+#### `updateArtist`
 ```graphql
 mutation updateArtist($id: ID, $input: ArtistInput) {
   updateArtist(id: $id, input: $input) {
@@ -202,7 +204,7 @@ Variables (`id` should be adjusted accordingly):
 }
 ```
 
-### `artist`
+#### `artist`
 ```graphql
 query getArtist($id: ID!) {
   artist(id: $id) {
@@ -226,7 +228,7 @@ Variables (`id` should be adjusted accordingly):
 }
 ```
 
-### `artists`
+#### `artists`
 ```graphql
 query getArtists($limit: Int, $offset: Int) {
   artists(limit: $limit, offset: $offset) {
@@ -255,3 +257,120 @@ Variables (optional):
 }
 ```
 
+### Genre
+
+#### `createGenre`
+```graphql
+mutation createGenre($input: GenreInput) {
+    createGenre (input: $input) {
+        id
+        name
+        description
+        country
+        year
+    }
+}
+```
+
+Variables:
+```json
+{
+  "input": {
+    "name": "GenreName",
+    "description": "GenreDescription",
+    "country": "Country",
+    "year": 2018
+  }
+}
+```
+
+#### `updateGenre`
+```graphql
+mutation updateGenre($id: ID, $input: GenreInput) {
+  updateGenre(id: $id, input: $input) {
+    id
+    name
+    description
+    country
+    year
+  }
+}
+```
+
+**Variables (`id` should be adjusted accordingly):**
+```json
+{
+  "id": "62c9c13c3f35e3ed166f5576",
+  "input": {
+    "name": "GenreNameUPD",
+    "description": "GenreDescriptionUPD",
+    "country": "CountryUPD",
+    "year": 2019
+  }
+}
+```
+
+#### `genre`
+
+**Query**
+```graphql
+query genre($id: ID!) {
+  genre(id: $id) {
+    id
+    name
+    description
+    country
+    year
+  }
+}
+```
+
+**Variables (`id` should be adjusted accordingly):**
+```json
+{
+   "id": "62c9c13c3f35e3ed166f5576"
+}
+```
+
+#### `genres`
+
+**Query**
+```graphql
+query genres($limit: Int, $offset: Int) {
+  genres(limit: $limit, offset: $offset) {
+    items {
+      id
+      name
+      country
+      description
+    }
+    limit
+    offset
+    total
+  }
+}
+```
+
+**Variables (optional):**
+```json
+{
+   "limit": 10,
+   "offset": 0
+}
+```
+
+#### `deleteGenre`
+
+**Query**
+```graphql
+mutation deleteGenre($id: ID!) {
+  deleteGenre(id: $id)
+}
+```
+
+**Variables (`id` should be adjusted accordingly):**
+```json
+{
+ "id": "62c9c0fa3f35e3ed166f5572"
+}
+```

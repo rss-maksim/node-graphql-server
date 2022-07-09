@@ -1,6 +1,7 @@
 import { getTrack, getTracks, createTrack } from '../modules/tracks/resolvers';
 import { registerUser, getUser, getJWT } from '../modules/users/resolvers';
 import { getArtists, getArtist, createArtist, deleteArtist, updateArtist } from '../modules/artists/resolvers';
+import { getGenres, getGenre, createGenre, deleteGenre, updateGenre } from '../modules/genres/resolvers';
 
 export const resolvers = {
   Query: {
@@ -8,6 +9,8 @@ export const resolvers = {
       jwt: getJWT,
       artist: getArtist,
       artists: getArtists,
+      genre: getGenre,
+      genres: getGenres,
       tracks: getTracks,
       track: getTrack
   },
@@ -16,6 +19,9 @@ export const resolvers = {
       createArtist,
       deleteArtist,
       updateArtist,
+      createGenre,
+      deleteGenre,
+      updateGenre,
       createTrack
   }
 };

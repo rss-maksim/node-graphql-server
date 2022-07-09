@@ -28,6 +28,13 @@ export default gql`
         total: Int
     }
     
+    type GenresWithPagination {
+        items: [Genre]
+        limit: String
+        offset: String
+        total: Int
+    }
+    
     type Band {
         id: ID!
         name: String
@@ -135,15 +142,23 @@ export default gql`
         instruments: [String]
         bands: [BandInput]
     }
+    
+    input GenreInput {
+        name: String
+        description: String
+        country: String
+        year: Int
+    }
 
     type Query {
         user(id: ID): User
         jwt(email: String, password: String): Jwt
         artists(limit: Int, offset: Int): ArtistsWithPagination
         artist(id: ID!): Artist
+        genres(limit: Int, offset: Int): GenresWithPagination
+        genre(id: ID!): Genre
         tracks: [Track]
         track(id: ID): Track
-        genres: [Genre]
     }
     
     type Mutation {
@@ -151,6 +166,9 @@ export default gql`
         createArtist(input: ArtistInput): Artist
         deleteArtist(id: ID!): Void
         updateArtist(id: ID, input: ArtistInput): Artist
+        createGenre(input: GenreInput): Genre
+        deleteGenre(id: ID!): Void
+        updateGenre(id: ID, input: GenreInput): Genre
         createTrack(input: CreateTrackInput): Track
     }
 `;
