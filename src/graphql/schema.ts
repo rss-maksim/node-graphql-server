@@ -1,6 +1,8 @@
 import { gql } from 'apollo-server-express';
 
 export default gql`
+    scalar Void
+    
     type Member {
         artist: String!
         instrument: String!
@@ -17,6 +19,13 @@ export default gql`
         country: String
         bands: [Band]
         instruments: [String]
+    }
+    
+    type ArtistsWithPagination {
+        items: [Artist]
+        limit: String
+        offset: String
+        total: Int
     }
     
     type Band {
@@ -130,15 +139,18 @@ export default gql`
     type Query {
         user(id: ID): User
         jwt(email: String, password: String): Jwt
+        artists(limit: Int, offset: Int): ArtistsWithPagination
+        artist(id: ID!): Artist
         tracks: [Track]
         track(id: ID): Track
         genres: [Genre]
-        artists: [Artist]
     }
     
     type Mutation {
         registerUser(input: RegisterUserInput): User
         createArtist(input: ArtistInput): Artist
+        deleteArtist(id: ID!): Void
+        updateArtist(id: ID, input: ArtistInput): Artist
         createTrack(input: CreateTrackInput): Track
     }
 `;

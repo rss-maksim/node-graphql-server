@@ -30,7 +30,7 @@ class UsersService {
         try {
             const response = await axios.get(`${this.baseUrl}/${id}`);
             if (!response?.data) {
-                throw new NotFoundException(statusCodes['404'], 404);
+                throw new NotFoundException(statusCodes['404']);
             }
             return this.userTransformer.transformId(response?.data) || null;
         } catch (error) {

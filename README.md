@@ -143,3 +143,115 @@ Variables:
 }
 ```
 
+### `deleteArtist`
+```graphql
+mutation deleteArtist($id: ID!) {
+    deleteArtist(id: $id)
+}
+```
+
+Variables (`id` should be adjusted accordingly):
+```json
+{
+  "id": "62c9a4f4f81c8f6a96a2a43b"
+}
+```
+
+### `updateArtist`
+```graphql
+mutation updateArtist($id: ID, $input: ArtistInput) {
+  updateArtist(id: $id, input: $input) {
+    id
+    firstName
+    secondName
+    middleName
+    birthDate
+    birthPlace
+    country
+    instruments
+    bands {
+      id
+      name,
+      origin
+      website,
+      genres {
+        id
+        description
+        country
+        description
+        year
+      }
+    }
+  }
+}
+```
+
+Variables (`id` should be adjusted accordingly):
+```json
+{
+  "id": "62c9a74ca7357f3e60ac5a2f",
+  "input": {
+    "firstName": "firstNameUPD",
+    "secondName": "secondNameUPD",
+    "middleName": "middleNameUPD",
+    "birthDate": "12/02/1992",
+    "birthPlace": "birthPlaceUPD",
+    "country": "countryUPD",
+    "instruments": ["instrument3", "instrument4"]
+  }
+}
+```
+
+### `artist`
+```graphql
+query getArtist($id: ID!) {
+  artist(id: $id) {
+    id
+    firstName
+    secondName
+    middleName
+    birthDate
+    birthPlace
+    country
+    instruments
+  }
+}
+
+```
+
+Variables (`id` should be adjusted accordingly):
+```json
+{
+  "id": "62c9a6b3a7357f3e60ac5a2d"
+}
+```
+
+### `artists`
+```graphql
+query getArtists($limit: Int, $offset: Int) {
+  artists(limit: $limit, offset: $offset) {
+    items {
+      id
+      firstName
+      secondName
+      middleName
+      birthDate
+      birthPlace
+      country
+      instruments
+    }
+    limit
+    offset
+    total
+  }
+}
+```
+
+Variables (optional):
+```json
+{
+  "limit": 10,
+  "offset": 0
+}
+```
+
