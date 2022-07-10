@@ -1,3 +1,4 @@
+export * from './getFavourites.controller';
 export * from './addArtistToFavourites.controller';
 export * from './addBandToFavourites.controller';
 export * from './addTrackToFavourites.controller';

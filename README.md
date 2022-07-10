@@ -10,9 +10,9 @@
 5. Run all the services `npm run run:all`
 6. Create a file `.env` with content from `.env.example`
 7. Run `npm run start`
-8. Open `http://localhost:8081/graphql` in the browser and run queries/mutations using graphQL UI
+8. Open `http://localhost:8081/graphql` in the browser and run queries/mutations using graphQL UI service
 9. Pay attention that before running mutations add jwt token as authorization header (to get jwt token use `getJwt` query after registration): 
-`authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmM5ODdhNjZkMmQ5YTJmZWI2NTg1NGMiLCJmaXJzdE5hbWUiOiJKb2huIiwibGFzdE5hbWUiOiJTbWl0aCIsImVtYWlsIjoiam9obl90ZXN0MUBnbWFpbC5jb20iLCJpYXQiOjE2NTczNzY1MzF9.LrQ0mClPULo_DjFgOPxB12yA4y4Yy7Jrs3CsuT6g1E4`
+`authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmM2NzViYTI5OGQzZTQ5ZjBiNDVjZTciLCJmaXJzdE5hbWUiOiJmaXJzdCBuYW1lIiwibGFzdE5hbWUiOiJsYXN0IG5hbWUiLCJlbWFpbCI6Im1ldDkxMjlAZ21haWwuY29tIiwiaWF0IjoxNjU3Mzc1NDQ2fQ.VeJMuLNAlMhErnswyu37Xr5_hdllKVlDhxIULmYILAU`
 
 ## Available mutations
 
@@ -693,4 +693,310 @@ mutation deleteBand($id: ID!) {
 
 ### Albums
 
+#### `createAlbum`
+```graphql
+mutation createAlbum($input: AlbumInput) {
+    createAlbum(input: $input) {
+        id
+        name
+        released
+        image
+        artists {
+            id
+            firstName
+        }
+        genres {
+            id
+            name
+        }
+        bands {
+            id
+            name
+        }
+        tracks {
+            id
+            duration
+        }
+        genres {
+            id
+            name
+        }
+    }
+}
+```
+
+Variables:
+```json
+{
+  "input": {
+    "name": "myAlbum",
+    "released": 2020,
+    "image": "https://image-store.com",
+    "artists": [],
+    "bands": [],
+    "tracks": [],
+    "genres": []
+  }
+}
+```
+
+#### `updateAlbum`
+```graphql
+mutation updateAlbum($id: ID, $input: AlbumInput) {
+    updateAlbum(id: $id, input: $input) {
+        id
+        name
+        released
+        image
+        artists {
+            id
+            firstName
+        }
+        genres {
+            id
+            name
+        }
+        bands {
+            id
+            name
+        }
+        tracks {
+            id
+            duration
+        }
+        genres {
+            id
+            name
+        }
+    }
+}
+```
+
+**Variables (`id` should be adjusted accordingly):**
+```json
+{
+  "id": "62caa1c573612c7dba48b797",
+  "input": {
+    "name": "myAlbumUPD",
+    "released": 2021,
+    "image": "https://image-storeUPD.com",
+    "artists": [],
+    "bands": [],
+    "tracks": [],
+    "genres": []
+  }
+}
+```
+
+#### `album`
+
+**Query**
+```graphql
+query album($id: ID) {
+    album(id: $id) {
+        id
+        name
+        released
+        image
+        artists {
+            id
+            firstName
+        }
+        genres {
+            id
+            name
+        }
+        bands {
+            id
+            name
+        }
+        tracks {
+            id
+            duration
+        }
+        genres {
+            id
+            name
+        }
+    }
+}
+```
+
+**Variables (`id` should be adjusted accordingly):**
+```json
+{
+  "id": "62caa1c573612c7dba48b797"
+}
+```
+
+#### `albums`
+
+**Query**
+```graphql
+query albums($limit: Int, $offset: Int) {
+    albums(limit: $limit, offset: $offset) {
+        items {
+            id
+            name
+            released
+            image
+            artists {
+                id
+                firstName
+            }
+            genres {
+                id
+                name
+            }
+            bands {
+                id
+                name
+            }
+            tracks {
+                id
+                duration
+            }
+            genres {
+                id
+                name
+            }
+        }
+        limit
+        offset
+        total
+    }
+}
+```
+
+**Variables (optional):**
+```json
+{
+  "limit": 10,
+  "offset": 0
+}
+```
+
+#### `deleteAlbum`
+
+**Query**
+```graphql
+mutation deleteAlbum($id: ID!) {
+    deleteAlbum(id: $id)
+}
+```
+
+**Variables (`id` should be adjusted accordingly):**
+```json
+{
+  "id": "62caa1c573612c7dba48b797"
+}
+```
+
 ### Favourites
+
+#### `favourites`
+
+**Query**
+```graphql
+query favourites {
+    favourites {
+        id
+        userId
+        bandsIds
+        genresIds
+        artistsIds
+        tracksIds
+    }
+}
+```
+
+#### `addTrackToFavourites`
+**Mutation**
+```graphql
+mutation addTrackToFavourites($id: ID!) {
+    addTrackToFavourites(id: $id) {
+        id
+        userId
+        bandsIds
+        genresIds
+        artistsIds
+        tracksIds
+    }
+}
+```
+
+**Variables (`id` might be adjusted accordingly):**
+```json
+{
+  "id": "12345"
+}
+```
+
+#### `addBandToFavourites`
+**Mutation**
+
+```graphql
+mutation addBandToFavourites($id: ID!) {
+    addBandToFavourites(id: $id) {
+        id
+        userId
+        bandsIds
+        genresIds
+        artistsIds
+        tracksIds
+    }
+}
+```
+
+**Variables (`id` might be adjusted accordingly):**
+```json
+{
+  "id": "12346"
+}
+```
+
+#### `addArtistToFavourites`
+**Mutation**
+
+```graphql
+mutation addArtistToFavourites($id: ID!) {
+    addArtistToFavourites(id: $id) {
+        id
+        userId
+        bandsIds
+        genresIds
+        artistsIds
+        tracksIds
+    }
+}
+```
+
+**Variables (`id` might be adjusted accordingly):**
+```json
+{
+  "id": "123467"
+}
+```
+
+#### `addGenreToFavourites`
+**Mutation**
+
+```graphql
+mutation addGenreToFavourites($id: ID!) {
+    addGenreToFavourites(id: $id) {
+        id
+        userId
+        bandsIds
+        genresIds
+        artistsIds
+        tracksIds
+    }
+}
+```
+
+**Variables (`id` might be adjusted accordingly):**
+```json
+{
+  "id": "1234678"
+}
+```

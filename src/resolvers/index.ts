@@ -4,7 +4,7 @@ import { getGenres, getGenre, createGenre, deleteGenre, updateGenre } from '../m
 import { getTrack, getTracks, createTrack, updateTrack, deleteTrack } from '../modules/tracks/resolvers';
 import { getBand, getBands, createBand, updateBand, deleteBand } from '../modules/bands/resolvers';
 import { getAlbum, getAlbums, createAlbum, updateAlbum, deleteAlbum } from '../modules/albums/resolvers';
-import { addArtistToFavourites, addBandToFavourites, addGenreToFavourites, addTrackToFavourites } from '../modules/favourites/resolvers';
+import { getFavourites, addArtistToFavourites, addBandToFavourites, addGenreToFavourites, addTrackToFavourites } from '../modules/favourites/resolvers';
 
 export const resolvers = {
   Query: {
@@ -19,7 +19,8 @@ export const resolvers = {
       bands: getBands,
       band: getBand,
       albums: getAlbums,
-      album: getAlbum
+      album: getAlbum,
+      favourites: getFavourites
   },
   Mutation: {
       registerUser,

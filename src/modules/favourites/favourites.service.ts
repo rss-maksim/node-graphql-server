@@ -16,9 +16,9 @@ class FavouritesService {
         this.entityResponseTransformer = new EntityResponseTransformer();
     }
 
-    async getFavourites() {
+    async getFavourites(token: string) {
         try {
-            const response = await axios.get(this.baseUrl);
+            const response = await axios.get(this.baseUrl, { ...makeAuthHeader(token) });
             if (!response?.data) {
                 throw new ForbiddenException(statusCodes['403']);
             }
@@ -34,7 +34,7 @@ class FavouritesService {
     async addToFavourites(payload: FavouriteRequestPayload, token: string) {
         try {
             const url = `${this.baseUrl}/add`;
-            const response = await axios.post(url, payload, { ...makeAuthHeader(token) });
+            const response = await axios.put(url, payload, { ...makeAuthHeader(token) });
             if (!response?.data) {
                 throw new ForbiddenException(statusCodes['403']);
             }
@@ -50,7 +50,7 @@ class FavouritesService {
     async removeFromFavourites(payload: FavouriteRequestPayload, token: string) {
         try {
             const url = `${this.baseUrl}/remove`;
-            const response = await axios.post(url, payload, { ...makeAuthHeader(token) });
+            const response = await axios.put(url, payload, { ...makeAuthHeader(token) });
             if (!response?.data) {
                 throw new ForbiddenException(statusCodes['403']);
             }
