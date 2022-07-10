@@ -2,7 +2,7 @@ import axios from 'axios';
 import {UserInputError} from 'apollo-server-express';
 
 import {statusCodes} from '../../const';
-import {addQueryParamsToUrl, EntityResponseTransformer, makeAuthHeader, parseServerError} from '../../utils';
+import {addQueryParamsToUrl, EntityResponseTransformer, makeAuthHeader, parseServerError, getEnvVariables} from '../../utils';
 import {NotFoundException} from '../../exceptions';
 
 class TracksService {
@@ -11,7 +11,7 @@ class TracksService {
     entityResponseTransformer: EntityResponseTransformer;
 
     constructor() {
-        this.baseUrl = process.env.TRACKS_URL;
+        this.baseUrl = getEnvVariables().TRACKS_URL;
         this.entityResponseTransformer = new EntityResponseTransformer();
     }
 
@@ -46,8 +46,7 @@ class TracksService {
 
     async createTrack(payload: any, token: string) {
         try {
-            const url = `${this.baseUrl}`;
-            const response = await axios.post(url, payload, { ...makeAuthHeader(token) });
+            const response = await axios.post(this.baseUrl, payload, { ...makeAuthHeader(token) });
             return this.entityResponseTransformer.transformEntityResponse(response?.data) || null;
         } catch (error) {
             parseServerError(error);

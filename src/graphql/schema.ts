@@ -179,13 +179,6 @@ export default gql`
         instruments: [String]
         bands: [BandInput]
     }
-    
-    input GenreInput {
-        name: String
-        description: String
-        country: String
-        year: Int
-    }
 
     type Query {
         user(id: ID): User

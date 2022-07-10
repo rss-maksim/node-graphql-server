@@ -6,6 +6,6 @@ export const parseServerError = (error: any): never => {
     const err = error?.response?.data?.error;
     throw new UserInputError(
         err || statusCodes[statusCode],
-        error.response.data
+        error?.response?.data
     );
 };

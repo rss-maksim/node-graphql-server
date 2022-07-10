@@ -2,7 +2,13 @@ import axios from 'axios';
 import {UserInputError} from 'apollo-server-express';
 
 import {statusCodes} from '../../const';
-import {addQueryParamsToUrl, EntityResponseTransformer, makeAuthHeader, parseServerError} from '../../utils';
+import {
+    addQueryParamsToUrl,
+    EntityResponseTransformer,
+    getEnvVariables,
+    makeAuthHeader,
+    parseServerError
+} from '../../utils';
 import {NotFoundException} from '../../exceptions';
 
 class AlbumsService {
@@ -11,7 +17,7 @@ class AlbumsService {
     entityResponseTransformer: EntityResponseTransformer;
 
     constructor() {
-        this.baseUrl = process.env.ALBUMS_URL;
+        this.baseUrl = getEnvVariables().ALBUMS_URL;
         this.entityResponseTransformer = new EntityResponseTransformer();
     }
 

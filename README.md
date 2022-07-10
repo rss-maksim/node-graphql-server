@@ -2,7 +2,7 @@
 
 ## Steps to have the application run:
 
-1. Download docker from here `https://docs.docker.com/get-docker`
+1. Download and install [docker](https://docs.docker.com/get-docker)
 2. Start mongodb in docker by running command:
 `docker run --name mongodb-container -dp 27888:27017 -e MONGO_INITDB_ROOT_USERNAME=mongoadmin -e MONGO_INITDB_ROOT_PASSWORD=secret mongo:latest`
 3. Clone the repo `https://github.com/rolling-scopes-school/node-graphql-service` 
@@ -374,3 +374,323 @@ mutation deleteGenre($id: ID!) {
  "id": "62c9c0fa3f35e3ed166f5572"
 }
 ```
+--------------------------------------------------
+### Tracks
+
+#### `createTrack`
+```graphql
+mutation createTrack($input: TrackInput) {
+    createTrack (input: $input) {
+        id
+        title
+        duration
+        released
+        albums {
+            id
+            name
+        }
+        bands {
+            id
+            name
+        }
+        genres {
+            id
+            name
+        }
+    }
+}
+```
+
+Variables:
+```json
+{
+  "input": {
+    "title": "TrackTitle",
+    "duration": 187,
+    "released": 2011
+  }
+}
+```
+
+#### `updateTrack`
+```graphql
+mutation updateTrack($id: ID, $input: TrackInput) {
+    updateTrack(id: $id, input: $input) {
+        id
+        title
+        duration
+        released
+        albums {
+            id
+            name
+        }
+        bands {
+            id
+            name
+        }
+        genres {
+            id
+            name
+        }
+    }
+}
+```
+
+**Variables (`id` should be adjusted accordingly):**
+```json
+{
+  "id": "62c67c4f126221edee0e0109",
+  "input": {
+    "title": "TrackTitleUPD",
+    "duration": 188,
+    "released": 2012
+  }
+}
+```
+
+#### `track`
+
+**Query**
+```graphql
+query track($id: ID!) {
+    track(id: $id) {
+        id
+        title
+        duration
+        released
+        albums {
+            id
+            name
+        }
+        bands {
+            id
+            name
+        }
+        genres {
+            id
+            name
+        }
+    }
+}
+```
+
+**Variables (`id` should be adjusted accordingly):**
+```json
+{
+  "id": "62c67c4f126221edee0e0109"
+}
+```
+
+#### `tracks`
+
+**Query**
+```graphql
+query tracks($limit: Int, $offset: Int) {
+    tracks(limit: $limit, offset: $offset) {
+        items {
+            id
+            title
+            duration
+            released
+            albums {
+                id
+                name
+            }
+            bands {
+                id
+                name
+            }
+            genres {
+                id
+                name
+            }
+        }
+        limit
+        offset
+        total
+    }
+}
+```
+
+**Variables (optional):**
+```json
+{
+  "limit": 10,
+  "offset": 0
+}
+```
+
+#### `deleteTrack`
+
+**Query**
+```graphql
+mutation deleteTrack($id: ID!) {
+    deleteTrack(id: $id)
+}
+```
+
+**Variables (`id` should be adjusted accordingly):**
+```json
+{
+  "id": "62c67c4f126221edee0e0109"
+}
+```
+
+### Bands
+
+#### `createBand`
+```graphql
+mutation createBand($input: BandInput) {
+    createBand(input: $input) {
+        id
+        name
+        origin
+        members {
+            artist
+            instrument
+        }
+        website
+        genres {
+            id
+            name
+        }
+    }
+}
+```
+
+Variables:
+```json
+{
+  "input": {
+    "name": "CoolBand",
+    "origin": "EN",
+    "members": [{
+      "artist": "Cool Artist",
+      "instrument": "guitar",
+      "years": ["1988", "2022"]
+    }],
+    "website": "coolband.com"
+  }
+}
+```
+
+#### `updateBand`
+```graphql
+mutation updateBand($id: ID, $input: BandInput) {
+    updateBand(id: $id, input: $input) {
+        id
+        name
+        origin
+        members {
+            artist
+            instrument
+        }
+        website
+        genres {
+            id
+            name
+        }
+    }
+}
+```
+
+**Variables (`id` should be adjusted accordingly):**
+```json
+{
+  "id": "62ca9c1ddfdaff0f78f474fd",
+  "input": {
+    "name": "CoolBandUPD",
+    "origin": "EN_US",
+    "members": [{
+      "artist": "Cool Artist",
+      "instrument": "guitar",
+      "years": ["1986", "2022"]
+    }],
+    "website": "coolband.music"
+  }
+}
+```
+
+#### `band`
+
+**Query**
+```graphql
+query band($id: ID) {
+    band(id: $id) {
+        id
+        name
+        origin
+        members {
+            artist
+            instrument
+        }
+        website
+        genres {
+            id
+            name
+        }
+    }
+}
+```
+
+**Variables (`id` should be adjusted accordingly):**
+```json
+{
+  "id": "62ca9c1ddfdaff0f78f474fd"
+}
+```
+
+#### `bands`
+
+**Query**
+```graphql
+query bands($limit: Int, $offset: Int) {
+    bands(limit: $limit, offset: $offset) {
+        items {
+            id
+            name
+            origin
+            members {
+                artist
+                instrument
+            }
+            website
+            genres {
+                id
+                name
+            }
+        }
+        limit
+        offset
+        total
+    }
+}
+```
+
+**Variables (optional):**
+```json
+{
+  "limit": 10,
+  "offset": 0
+}
+```
+
+#### `deleteBand`
+
+**Query**
+```graphql
+mutation deleteBand($id: ID!) {
+    deleteBand(id: $id)
+}
+```
+
+**Variables (`id` should be adjusted accordingly):**
+```json
+{
+  "id": "62ca9bb7dfdaff0f78f474f9"
+}
+```
+
+### Albums
+
+### Favourites
