@@ -2,7 +2,7 @@ import axios from 'axios';
 import {UserInputError} from 'apollo-server-express';
 
 import {statusCodes} from '../../const';
-import {addQueryParamsToUrl, makeAuthHeader} from '../../utils';
+import {addQueryParamsToUrl, getEnvVariables, makeAuthHeader} from '../../utils';
 import {ArtistResponseTransformer} from './utils';
 import {NotFoundException} from '../../exceptions';
 
@@ -12,7 +12,7 @@ class ArtistsService {
     artistResponseTransformer: ArtistResponseTransformer;
 
     constructor() {
-        this.baseUrl = process.env.ARTISTS_URL;
+        this.baseUrl = getEnvVariables().ARTISTS_URL;
         this.artistResponseTransformer = new ArtistResponseTransformer();
     }
 

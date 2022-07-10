@@ -2,7 +2,7 @@ import axios from 'axios';
 import {UserInputError} from 'apollo-server-express';
 
 import {statusCodes} from '../../const';
-import {EntityResponseTransformer, makeAuthHeader, parseServerError} from '../../utils';
+import {EntityResponseTransformer, getEnvVariables, makeAuthHeader, parseServerError} from '../../utils';
 import {ForbiddenException} from '../../exceptions';
 import {Entity, FavouriteRequestPayload} from './types';
 
@@ -12,7 +12,7 @@ class FavouritesService {
     entityResponseTransformer: EntityResponseTransformer;
 
     constructor() {
-        this.baseUrl = process.env.FAVOURITES_URL;
+        this.baseUrl = getEnvVariables().FAVOURITES_URL;
         this.entityResponseTransformer = new EntityResponseTransformer();
     }
 

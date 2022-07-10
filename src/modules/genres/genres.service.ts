@@ -2,10 +2,9 @@ import axios from 'axios';
 import {UserInputError} from 'apollo-server-express';
 
 import {statusCodes} from '../../const';
-import {addQueryParamsToUrl, makeAuthHeader} from '../../utils';
+import {addQueryParamsToUrl, getEnvVariables, makeAuthHeader} from '../../utils';
 import {GenreResponseTransformer} from './utils';
 import {NotFoundException} from '../../exceptions';
-import {getGenre} from './resolvers/getGenre.controller';
 
 class GenresService {
 
@@ -13,7 +12,7 @@ class GenresService {
     genreResponseTransformer: GenreResponseTransformer;
 
     constructor() {
-        this.baseUrl = process.env.GENRES_URL;
+        this.baseUrl = getEnvVariables().GENRES_URL;
         this.genreResponseTransformer = new GenreResponseTransformer();
     }
 

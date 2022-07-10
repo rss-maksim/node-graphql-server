@@ -6,13 +6,18 @@
 2. Start mongodb in docker by running command:
 `docker run --name mongodb-container -dp 27888:27017 -e MONGO_INITDB_ROOT_USERNAME=mongoadmin -e MONGO_INITDB_ROOT_PASSWORD=secret mongo:latest`
 3. Clone the repo `https://github.com/rolling-scopes-school/node-graphql-service` 
-4. Install dependencies `npm i` in the repo cloned
+4. In just repo cloned, install dependencies by running`npm i`
 5. Run all the services `npm run run:all`
-6. Create a file `.env` with content from `.env.example`
-7. Run `npm run start`
-8. Open `http://localhost:8081/graphql` in the browser and run queries/mutations using graphQL UI service
-9. Pay attention that before running mutations add jwt token as authorization header (to get jwt token use `getJwt` query after registration): 
+6. Clone repo `https://github.com/rss-maksim/node-graphql-server`
+7. Fetch branch `feat/graphql` by running `git fetch origin feat/graphql`
+8. Switch to just cloned branch `git checkout feat/graphql`
+9. Install all the dependencies by `npm i`
+10. Create a file `.env` with content copied from `.env.example`
+11. Run `npm run start`
+12. Open `http://localhost:8081/graphql` in the browser and run queries/mutations using graphQL UI service (port depends on value `PORT` in the `.env` file)
+13. Pay attention that before running mutations you need to get and add jwt token as authorization header (to get jwt token use `getJwt` query after registration): 
 `authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmM2NzViYTI5OGQzZTQ5ZjBiNDVjZTciLCJmaXJzdE5hbWUiOiJmaXJzdCBuYW1lIiwibGFzdE5hbWUiOiJsYXN0IG5hbWUiLCJlbWFpbCI6Im1ldDkxMjlAZ21haWwuY29tIiwiaWF0IjoxNjU3Mzc1NDQ2fQ.VeJMuLNAlMhErnswyu37Xr5_hdllKVlDhxIULmYILAU`
+14. Run all the following queries/mutations just copping them and putting into Operation block, and variables into `Variables` block
 
 ## Available mutations
 
@@ -145,13 +150,6 @@ Variables:
 }
 ```
 
-#### `deleteArtist`
-```graphql
-mutation deleteArtist($id: ID!) {
-    deleteArtist(id: $id)
-}
-```
-
 Variables (`id` should be adjusted accordingly):
 ```json
 {
@@ -254,6 +252,13 @@ Variables (optional):
 {
   "limit": 10,
   "offset": 0
+}
+```
+
+#### `deleteArtist`
+```graphql
+mutation deleteArtist($id: ID!) {
+    deleteArtist(id: $id)
 }
 ```
 
@@ -374,7 +379,7 @@ mutation deleteGenre($id: ID!) {
  "id": "62c9c0fa3f35e3ed166f5572"
 }
 ```
---------------------------------------------------
+
 ### Tracks
 
 #### `createTrack`
@@ -896,20 +901,6 @@ mutation deleteAlbum($id: ID!) {
 
 #### `favourites`
 
-**Query**
-```graphql
-query favourites {
-    favourites {
-        id
-        userId
-        bandsIds
-        genresIds
-        artistsIds
-        tracksIds
-    }
-}
-```
-
 #### `addTrackToFavourites`
 **Mutation**
 ```graphql
@@ -998,5 +989,19 @@ mutation addGenreToFavourites($id: ID!) {
 ```json
 {
   "id": "1234678"
+}
+```
+
+**Query**
+```graphql
+query favourites {
+    favourites {
+        id
+        userId
+        bandsIds
+        genresIds
+        artistsIds
+        tracksIds
+    }
 }
 ```

@@ -5,6 +5,7 @@ import {statusCodes} from '../../const';
 import {RegisterUserRequestPayload} from './types';
 import {UserTransformer} from './utils/UserTransformer';
 import {ForbiddenException, NotFoundException} from '../../exceptions';
+import {getEnvVariables} from '../../utils';
 
 class UsersService {
 
@@ -12,7 +13,7 @@ class UsersService {
     userTransformer: UserTransformer;
 
     constructor() {
-        this.baseUrl = process.env.USERS_URL;
+        this.baseUrl = getEnvVariables().USERS_URL;
         this.userTransformer = new UserTransformer();
     }
 
